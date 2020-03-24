@@ -1,10 +1,11 @@
-# PicoZense_SDK_Android
+# FaceRecognitionDevice_SDK_Android
 
 ## PicoZense TOF camera software develop kit for android system
 
 ### Supported Devices
 
 - DCAM305
+Support FirmwareVersion: DCAM305_c086_pc_sv0.01_R2_20200313_b42 and before
 
 ### Resources
 
