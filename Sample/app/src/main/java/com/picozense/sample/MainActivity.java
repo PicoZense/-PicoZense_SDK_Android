@@ -10,7 +10,6 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,10 +21,12 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.picozense.sdk.PsCamera.DeviceStatus;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.picozense.sdk.IFrameCallback;
 import com.picozense.sdk.IUpgradeStatusCallback;
 import com.picozense.sdk.PsCamera;
+import com.picozense.sdk.PsCamera.DeviceStatus;
 import com.picozense.sdk.PsCamera.OnPicoCameraConnectListener;
 import com.picozense.sdk.PsFrame;
 
