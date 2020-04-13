@@ -10,6 +10,7 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,12 +22,10 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.picozense.sdk.PsCamera.DeviceStatus;
 import com.picozense.sdk.IFrameCallback;
 import com.picozense.sdk.IUpgradeStatusCallback;
 import com.picozense.sdk.PsCamera;
-import com.picozense.sdk.PsCamera.DeviceStatus;
 import com.picozense.sdk.PsCamera.OnPicoCameraConnectListener;
 import com.picozense.sdk.PsFrame;
 
@@ -647,12 +646,6 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-	private int depthFPS = 0;
-	private int rgbFps = 0;
-	private long depthStartTime = 0;
-	private long depthEndTime = 0;
-	private long rgbStartTime = 0;
-	private long rgbEndTime = 0;
 	public class FrameCallback implements IFrameCallback {
 		@Override
 		public void onFrame(PsFrame DepthFrame,PsFrame IrFrame,PsFrame RgbFrame) {
@@ -674,19 +667,6 @@ public class MainActivity extends AppCompatActivity {
 				canvas.drawText(".", (mBmpDepth.getWidth() / 2), (mBmpDepth.getHeight() / 2 + 20), paint);
 				mRenderDepth.setBuf(mBmpDepth);
 				mGlSurfaceViewDepth.requestRender();
-
-				{
-					depthFPS++;
-					if (depthStartTime == 0) {
-						depthStartTime = System.currentTimeMillis();
-					}
-					if (depthFPS >= 60) {
-						depthEndTime = System.currentTimeMillis();
-						Log.i(TAG, "current== depth fps  " + Math.round((float)depthFPS * 1000 / (depthEndTime - depthStartTime)));
-						depthStartTime = depthEndTime;
-						depthFPS = 0;
-					}
-				}
 			}
 			if(null != IrFrame){
 
@@ -710,19 +690,6 @@ public class MainActivity extends AppCompatActivity {
 				mPicoCamera.RgbToRgba_bf(RgbFrame.frameData,mBmpRgb,RgbFrame.width,RgbFrame.height);
 				mRenderColor.setBuf(mBmpRgb);
 				mGlSurfaceViewColor.requestRender();
-
-				{
-					rgbFps++;
-					if (rgbStartTime == 0) {
-						rgbStartTime = System.currentTimeMillis();
-					}
-					if (rgbFps >= 120) {
-						rgbEndTime = System.currentTimeMillis();
-						Log.i(TAG, "current== rgb fps  " +  Math.round((float)rgbFps * 1000 / (rgbEndTime - rgbStartTime)));
-						rgbStartTime = rgbEndTime;
-						rgbFps = 0;
-					}
-				}
 			}
 		}
 	}
